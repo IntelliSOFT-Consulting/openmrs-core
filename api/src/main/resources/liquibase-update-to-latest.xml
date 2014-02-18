@@ -3858,7 +3858,7 @@
 		<dropTable tableName="concept_derived"/>
 	</changeSet>
 	
-	<changeSet id="201011051300" author="bwolfe" dbms="mysql">
+	<!--<changeSet id="201011051300" author="bwolfe" dbms="mysql">
 		<preConditions onFail="MARK_RAN">
 			<not><indexExists indexName="alert_date_to_expire_idx" /></not>
 		</preConditions>
@@ -3866,7 +3866,7 @@
 		<createIndex tableName="notification_alert" indexName="alert_date_to_expire_idx">
 			<column name="date_to_expire" />
 		</createIndex>
-	</changeSet>
+	</changeSet>-->
 
 	<changeSet id="20100603-1625-1-person_address" author="sapna" dbms="mysql">
 		<preConditions onFail="MARK_RAN"><not><columnExists tableName="person_address" columnName="date_changed"/></not></preConditions>
