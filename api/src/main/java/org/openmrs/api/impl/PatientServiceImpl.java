@@ -1554,8 +1554,11 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 		int count = 0;
 		if (StringUtils.isBlank(query))
 			return count;
-		List<PatientIdentifierType> emptyList = new Vector<PatientIdentifierType>();
-		return OpenmrsUtil.convertToInteger(dao.getCountOfPatients(null, query, emptyList, false, true));
+		//Check whether do to a name search or identifier search
+		if (query.matches(".*\\d+.*")) {
+			return OpenmrsUtil.convertToInteger(dao.getCountOfPatients(null, query, Collections.EMPTY_LIST, true, false));
+		}
+		return OpenmrsUtil.convertToInteger(dao.getCountOfPatients(query, null, Collections.EMPTY_LIST, false, false));
 	}
 	
 	/**
@@ -1587,8 +1590,10 @@ public class PatientServiceImpl extends BaseOpenmrsService implements PatientSer
 		List<Patient> patients = new Vector<Patient>();
 		if (StringUtils.isBlank(query))
 			return patients;
-		
-		return dao.getPatients(query, null, Collections.EMPTY_LIST, false, start, length, true);
+		if (query.matches(".*\\d+.*")) {
+			return dao.getPatients(null, query, Collections.EMPTY_LIST, true, start, length, false);
+		}
+		return dao.getPatients(query, null, Collections.EMPTY_LIST, false, start, length, false);
 	}
 	
 	/**

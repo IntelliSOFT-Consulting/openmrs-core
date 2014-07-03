@@ -160,6 +160,14 @@ public class DWRPatientService implements GlobalPropertyListener {
 		return patientList;
 	}
 	
+	public Collection<Object> createPatientList(Collection<Patient> patients, String searchValue) {
+		// the list to return
+		List<Object> patientList = new Vector<Object>(patients.size());
+		for (Patient p : patients)
+			patientList.add(new PatientListItem(p, searchValue));
+		return patientList;
+	}
+	
 	/**
 	 * Returns a map of results with the values as count of matches and a partial list of the
 	 * matching patients (depending on values of start and length parameters) while the keys are are
@@ -192,8 +200,8 @@ public class DWRPatientService implements GlobalPropertyListener {
 				patientCount += ps.getCountOfPatients(searchValue);
 				
 				// if there are no results found and a number was not in the
-				// search and this is the first call, then do a decapitated search: 
-				//trim each word down to the first three characters and search again				
+				// search and this is the first call, then do a decapitated search:
+				//trim each word down to the first three characters and search again
 				if (patientCount == 0 && start == 0 && !searchValue.matches(".*\\d+.*")) {
 					String[] names = searchValue.split(" ");
 					String newSearch = "";

@@ -216,7 +216,6 @@ public class HibernatePatientDAO implements PatientDAO {
 		}
 		if (length != null)
 			criteria.setMaxResults(length);
-		
 		return criteria.list();
 	}
 	
